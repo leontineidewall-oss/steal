@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>steal</title>
+<meta name="description" content="one price tag holds the fees. name your price, or lose it.">
+<meta property="og:title" content="steal">
+<meta property="og:description" content="one price tag holds the fees. name your price, or lose it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stealsol.vercel.app/">
+<meta property="og:image" content="https://stealsol.vercel.app/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://stealsol.vercel.app/og.png">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--fg:#f2f2f2;--mid:#8a8a8a;--dim:#4a4a4a;--line:#1c1c1c;--red:#ff2a36;--red2:#ff6b73;--card:#070707;--sans:'Inter',system-ui,sans-serif;--mono:'JetBrains Mono','DejaVu Sans Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html{overflow-x:hidden;scroll-behavior:smooth;background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.5 var(--sans);overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+.mono{font-family:var(--mono)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:24px;padding-right:24px}
+nav{position:sticky;top:0;z-index:20;background:rgba(0,0,0,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:22px;height:58px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;font:800 19px var(--sans);letter-spacing:-.02em}
+.brand svg{width:20px;height:20px}
+.links{display:flex;gap:20px;margin-left:auto;font:400 12px var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.links a{text-decoration:none;color:var(--mid)}
+.links a:hover{color:var(--fg)}
+.ca{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:7px 13px;font:400 12px var(--mono);color:var(--mid);background:none;cursor:pointer;white-space:nowrap}
+.ca b{color:var(--fg);font-weight:400}
+.ca:hover{border-color:#333}
+.hero{position:relative;height:min(64vh,600px);min-height:400px}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
+.hero .tl{position:absolute;left:0;right:0;bottom:7%;text-align:center;font:700 12px var(--mono);letter-spacing:.45em;color:#7a7a7a;pointer-events:none;padding-left:.45em}
+.hero .tl b{color:#fff;font-weight:700}
+h1.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+section{padding-top:88px;padding-bottom:88px;border-top:1px solid var(--line);scroll-margin-top:58px}
+.k{font:400 11px var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--mid);display:flex;gap:14px;align-items:center;margin-bottom:26px}
+.k i{font-style:normal;color:var(--red)}
+h2{font:800 clamp(34px,5vw,60px)/1 var(--sans);letter-spacing:-.04em;margin-bottom:38px}
+h2 em{font-style:normal;color:var(--red)}
+.live{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px}
+.ask{font:800 clamp(56px,9vw,112px)/.9 var(--sans);letter-spacing:-.05em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ask small{font:700 .28em var(--mono);letter-spacing:.06em;color:var(--mid);margin-left:.3em}
+.usd{font:400 14px var(--mono);color:var(--mid);margin-top:12px;min-height:21px}
+.melt{margin:26px 0 8px;height:6px;border-radius:6px;background:#141414;overflow:hidden}
+.melt i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--red2));transition:width .9s linear}
+.mrow{display:flex;justify-content:space-between;font:400 11px var(--mono);color:var(--dim);letter-spacing:.06em}
+.grid4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:26px}
+.grid4>div{background:var(--card);padding:16px 18px;min-width:0}
+.lab{font:400 10px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.val{font:600 17px var(--mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.val a{text-decoration:none;border-bottom:1px dotted #444}
+.st{display:flex;flex-direction:column}
+.st h3{font:800 28px/1.1 var(--sans);letter-spacing:-.03em;margin-bottom:6px}
+.st p.sub{color:var(--mid);font-size:14px;margin-bottom:24px}
+.field{display:flex;align-items:center;border:1px solid #232323;border-radius:12px;padding:0 14px;height:54px;background:#030303}
+.field input{flex:1;min-width:0;background:none;border:0;outline:0;font:700 22px var(--mono)}
+.field span{font:400 12px var(--mono);color:var(--mid)}
+input[type=range]{width:100%;margin:16px 0 4px;accent-color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:56px;border-radius:12px;border:0;background:var(--red);color:#fff;font:800 17px var(--sans);letter-spacing:-.01em;cursor:pointer;margin-top:18px;width:100%;transition:transform .12s,filter .12s}
+.btn:hover{filter:brightness(1.1)}
+.btn:active{transform:scale(.985)}
+.btn[disabled]{background:#1a1a1a;color:#555;cursor:not-allowed}
+.btn.alt{background:none;border:1px solid #2a2a2a;color:var(--fg);height:44px;font:400 12px var(--mono);margin-top:10px}
+.manual{margin-top:18px;font:400 12px/1.7 var(--mono);color:var(--mid);border-top:1px dashed #1e1e1e;padding-top:16px}
+.manual code{color:var(--fg);background:#111;border-radius:6px;padding:2px 7px;cursor:pointer;word-break:break-all}
+.msg{font:400 12px var(--mono);color:var(--mid);margin-top:12px;min-height:18px}
+.msg.bad{color:var(--red2)}
+.msg.good{color:#e8e8e8}
+.rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.rule{border:1px solid var(--line);border-radius:18px;padding:26px;background:var(--card);position:relative;overflow:hidden;min-height:250px;display:flex;flex-direction:column}
+.rule .n{font:400 11px var(--mono);color:var(--red);letter-spacing:.2em}
+.rule .w{font:900 46px/1 var(--sans);letter-spacing:-.04em;margin-top:auto}
+.rule .d{font:400 13px var(--mono);color:var(--mid);margin-top:10px}
+.rule pre{font:700 15px/1.1 var(--mono);color:#555;margin-top:18px;white-space:pre}
+.rule pre b{color:var(--red);font-weight:700}
+.after{margin-top:22px;font:400 13px var(--mono);color:var(--mid);display:flex;flex-wrap:wrap;gap:10px 28px}
+.after span::before{content:"→ ";color:var(--red)}
+.plan{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px}
+.inputs{display:grid;gap:18px}
+.inputs label{display:block}
+.out{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.out>div{background:var(--card);padding:18px}
+.out .val{font-size:22px}
+.net.pos{color:#fff}
+.net.neg{color:var(--red2)}
+.chart{width:100%;height:220px;display:block;margin-top:18px}
+.hint{font:400 12px var(--mono);color:var(--dim);margin-top:10px}
+table{width:100%;border-collapse:collapse;font:400 13px var(--mono)}
+th{font:400 10px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-align:left;padding:0 12px 12px;border-bottom:1px solid var(--line)}
+td{padding:14px 12px;border-bottom:1px solid #111;white-space:nowrap}
+td a{text-decoration:none}
+td.r,th.r{text-align:right}
+.chip{display:inline-block;font:400 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;border:1px solid #2a2a2a;border-radius:999px;padding:3px 9px;color:var(--mid)}
+.chip.ok{border-color:#3a3a3a;color:#ddd}
+.chip.pend{border-color:#5a1a1f;color:var(--red2)}
+.chip.void{color:#555}
+.scroll{overflow-x:auto}
+.logwrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px}
+.crew li{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #111;font:400 13px var(--mono);list-style:none}
+.crew li b{font-weight:400;color:var(--mid)}
+.empty{color:var(--dim);font:400 13px var(--mono);padding:18px 12px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.stats>div{background:var(--card);padding:26px 28px;min-width:0}
+.stats .val{font:700 clamp(22px,3vw,34px) var(--sans);letter-spacing:-.03em}
+.src{font:400 11px var(--mono);color:var(--dim);margin-top:14px;letter-spacing:.06em}
+.trust{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.trust>div{padding:20px 26px;border-bottom:1px solid var(--line);font:400 14px var(--mono);min-width:0}
+.trust>div:nth-child(odd){color:var(--mid);border-right:1px solid var(--line)}
+.trust>div.h{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+.trust>div:nth-last-child(-n+2){border-bottom:0}
+.faq details{border-bottom:1px solid var(--line);padding:22px 0}
+.faq summary{cursor:pointer;font:600 18px var(--sans);letter-spacing:-.01em;list-style:none;display:flex;justify-content:space-between}
+.faq summary::after{content:"+";font:400 18px var(--mono);color:var(--red)}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--mid);margin-top:12px;font:400 14px/1.65 var(--mono);max-width:760px}
+footer{border-top:1px solid var(--line);padding-top:40px;padding-bottom:60px}
+footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px var(--mono);color:var(--dim);flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);opacity:0;background:#fff;color:#000;font:600 13px var(--mono);padding:10px 16px;border-radius:999px;transition:.25s;pointer-events:none;z-index:50}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
+.rv.vis{opacity:1;transform:none}
+.flash{animation:fl .9s}
+@keyframes fl{0%{color:var(--red2)}100%{color:inherit}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media (max-width:900px){.live,.plan,.logwrap{grid-template-columns:minmax(0,1fr)}.rules{grid-template-columns:repeat(2,minmax(0,1fr))}.links{display:none}.ca{margin-left:auto}}
+@media (max-width:560px){.wrap{padding-left:16px;padding-right:16px}.rules,.stats{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:22px}section{padding-top:64px;padding-bottom:64px}.hero{height:440px;min-height:0}.hero .tl{font-size:10px;letter-spacing:.3em}.trust{grid-template-columns:minmax(0,1fr)}.trust>div:nth-child(odd){border-right:0;padding-bottom:6px;border-bottom:0}.trust>div.h:nth-child(2){display:none}.rule{min-height:200px}.ca .lbl{display:none}.grid4 .val{font-size:15px}.out .val{font-size:16px;white-space:normal}.out>div{padding:14px}.mrow{font-size:10px;gap:10px}.ask{font-size:58px}}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#top"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1 19 7v12h-6l-3-4-3 4H1V7z" fill="#ff2a36"/><circle cx="10" cy="7" r="2.1" fill="#000"/></svg>steal</a>
+  <div class="links"><a href="#tag">tag</a><a href="#rules">rules</a><a href="#plan">price it</a><a href="#log">log</a><a href="#coin">coin</a></div>
+  <button class="ca" id="ca" type="button" title="copy contract address"><span class="lbl">CA</span> <b id="caV">—</b></button>
+</div></nav>
+<header class="hero" id="top">
+  <h1 class="sr">steal</h1>
+  <canvas id="scene" aria-label="ascii STEAL wordmark, the A is a red price tag on a string"></canvas>
+  <div class="tl"><b>NAME YOUR PRICE</b> &nbsp;·&nbsp; OR LOSE IT</div>
+</header>
+<main>
+<section id="tag"><div class="wrap">
+  <div class="k"><i>01</i> the tag <span id="liveDot" class="chip">—</span></div>
+  <div class="live">
+    <div class="card rv">
+      <div class="lab">ask right now</div>
+      <div class="ask"><span id="ask" data-shown="0">—</span><small>SOL</small></div>
+      <div class="usd" id="askUsd"></div>
+      <div class="melt"><i id="meltBar"></i></div>
+      <div class="mrow"><span id="meltL">melting 5% an hour</span><span id="meltR">—</span></div>
+      <div class="grid4">
+        <div><div class="lab">holder</div><div class="val" id="holder">—</div></div>
+        <div><div class="lab">held for</div><div class="val" id="held">—</div></div>
+        <div><div class="lab">they paid</div><div class="val" id="paid">—</div></div>
+        <div><div class="lab">tag wallet</div><div class="val" id="bal">—</div></div>
+      </div>
+      <div class="src" id="tagSrc">—</div>
+    </div>
+    <div class="card st rv">
+      <h3>steal it</h3>
+      <p class="sub">pay the ask. set yours. hold the fees.</p>
+      <div class="lab">your price</div>
+      <div class="field"><input id="myPrice" inputmode="decimal" autocomplete="off" value="" placeholder="—" aria-label="your new price in SOL"><span>SOL</span></div>
+      <input type="range" id="mySlide" min="1" max="2" step="0.01" value="1.5" aria-label="your price as a multiple of the ask">
+      <div class="mrow"><span id="minP">—</span><span id="maxP">max 2× what you pay</span></div>
+      <button class="btn" id="stealBtn" type="button" disabled>not open yet</button>
+      <div class="msg" id="msg"></div>
+      <div class="manual" id="manual">no wallet extension? send <code id="mAmt" data-copy="">—</code> SOL to <code id="mTo" data-copy="">—</code> with memo <code id="mMemo" data-copy="">—</code></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="rules"><div class="wrap">
+  <div class="k"><i>02</i> rules</div>
+  <h2>four moves. <em>one tag.</em></h2>
+  <div class="rules">
+    <div class="rule rv"><div class="n">01</div><pre>  .--.
+ / <b>()</b> \
+|  ◎  |
+'----'</pre><div class="w">pay</div><div class="d">the ask, in SOL</div></div>
+    <div class="rule rv"><div class="n">02</div><pre> ×1 ── ×2
+ <b>████</b>░░░░</pre><div class="w">name</div><div class="d">your price, up to 2× what you paid</div></div>
+    <div class="rule rv"><div class="n">03</div><pre> ▇▆▅▄▃▂▁
+ <b>-5%</b> / hour</pre><div class="w">melt</div><div class="d">the ask drops 5% every hour</div></div>
+    <div class="rule rv"><div class="n">04</div><pre>  you ← <b>90%</b>
+  burn ← 10%</pre><div class="w">lose</div><div class="d">stolen? you get 90% of their pay</div></div>
+  </div>
+  <div class="after"><span>holder gets the creator fees</span><span>10% of every steal buys and burns the coin</span><span>floor 0.01 SOL</span></div>
+</div></section>
+
+<section id="plan"><div class="wrap">
+  <div class="k"><i>03</i> price it</div>
+  <h2>too low, it's gone. <em>too high, it melts.</em></h2>
+  <div class="plan">
+    <div class="card inputs rv">
+      <label><div class="lab">you pay</div><div class="field"><input id="pPay" inputmode="decimal" value="1"><span>SOL</span></div></label>
+      <label><div class="lab">you set</div><div class="field"><input id="pSet" inputmode="decimal" value="1.6"><span>SOL</span></div></label>
+      <label><div class="lab">stolen after <b id="pHv" class="mono">6</b> h</div><input type="range" id="pH" min="0" max="72" step="0.5" value="6"></label>
+      <label><div class="lab">fees to holder per day</div><div class="field"><input id="pFee" inputmode="decimal" value="0" placeholder="0"><span>SOL</span></div></label>
+    </div>
+    <div class="card rv">
+      <div class="out">
+        <div><div class="lab">their ask then</div><div class="val" id="oAsk">—</div></div>
+        <div><div class="lab">you get back</div><div class="val" id="oBack">—</div></div>
+        <div><div class="lab">fees while held</div><div class="val" id="oFee">—</div></div>
+        <div><div class="lab">net</div><div class="val net" id="oNet">—</div></div>
+      </div>
+      <svg class="chart" id="pChart" viewBox="0 0 600 220" preserveAspectRatio="none" aria-label="ask over time"></svg>
+      <div class="hint" id="oBe">—</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="log"><div class="wrap">
+  <div class="k"><i>04</i> log <span class="chip" id="logN">—</span></div>
+  <h2>every steal, <em>on chain.</em></h2>
+  <div class="card rv" style="padding:22px 22px 8px"><svg class="chart" id="hChart" viewBox="0 0 1000 220" preserveAspectRatio="none" aria-label="tag price history"></svg><div class="hint" id="hHint" style="margin-bottom:12px">—</div></div>
+  <div class="logwrap" style="margin-top:18px">
+    <div class="card scroll rv" style="padding:22px 10px">
+      <table><thead><tr><th>when</th><th>thief</th><th class="r">paid</th><th class="r">set</th><th>payout</th></tr></thead><tbody id="rows"><tr><td colspan="5" class="empty">—</td></tr></tbody></table>
+    </div>
+    <div class="card rv"><div class="lab">most steals</div><ul class="crew" id="crew"><li><span>—</span><b>—</b></li></ul></div>
+  </div>
+</div></section>
+
+<section id="coin"><div class="wrap">
+  <div class="k"><i>05</i> the coin</div>
+  <h2>the coin <em>behind the tag.</em></h2>
+  <div class="stats rv">
+    <div><div class="lab">price</div><div class="val" id="mPrice">—</div></div>
+    <div><div class="lab">market cap</div><div class="val" id="mCap">—</div></div>
+    <div><div class="lab">24h volume</div><div class="val" id="mVol">—</div></div>
+    <div><div class="lab">liquidity</div><div class="val" id="mLiq">—</div></div>
+    <div><div class="lab">24h</div><div class="val" id="mChg">—</div></div>
+    <div><div class="lab">buys / sells</div><div class="val" id="mTx">—</div></div>
+  </div>
+  <div class="src" id="mSrc">—</div>
+</div></section>
+
+<section id="trust"><div class="wrap">
+  <div class="k"><i>06</i> trust</div>
+  <h2>what it <em>can't</em> do.</h2>
+  <div class="trust rv">
+    <div class="h">it cannot</div><div class="h">so it</div>
+    <div>move your SOL</div><div>only reads the chain. your wallet signs every steal.</div>
+    <div>hide a payout</div><div>pays from the tag wallet with memo pay:&lt;steal&gt;. pending shows here until it lands.</div>
+    <div>take an underpaid steal</div><div>marks it void and sends it back.</div>
+    <div>change the rules</div><div>replays every steal from the chain with the same four rules.</div>
+  </div>
+</div></section>
+
+<section id="faq"><div class="wrap">
+  <div class="k"><i>07</i> faq</div>
+  <div class="faq">
+    <details><summary>what do I get for holding the tag?</summary><p>the coin's creator fees, for as long as you hold it. they go out from the tag wallet with memo fee.</p></details>
+    <details><summary>why does the ask melt?</summary><p>so nobody can park it at a price no one pays. hold it long and it gets cheap to take.</p></details>
+    <details><summary>what if two people steal at once?</summary><p>the first one on chain wins. the second paid under the new ask, so it's void and sent back.</p></details>
+    <details><summary>can I steal it back?</summary><p>yes, any time, at the ask. you can't steal from yourself.</p></details>
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap"><span>steal</span><span>reads solana. never asks for keys.</span></div></footer>
+<div class="toast" id="toast"></div>
+<script>
+// steal ascii engine: 3d STEAL wordmark whose A is a swinging red price tag
+(function (root) {
+  var RAMP = " .,:;-=+*oO0#@";
+  function rng(s) { return function () { return (s = (s * 16807) % 2147483647) / 2147483647; }; }
+  function Scene(cv, o) {
+    o = o || {};
+    this.cv = cv; this.x = cv.getContext("2d");
+    this.wordOpt = o.word; this.font = o.font || "'Inter', 'Arial Black', sans-serif";
+    this.mono = o.mono || "'JetBrains Mono', 'DejaVu Sans Mono', monospace";
+    this.price = null; this.th = 0; this.om = 0; this.lift = 0; this.lv = 0; this.t0 = 0; this.frames = 0;
+    this.layout();
+  }
+  Scene.prototype.layout = function () {
+    var cv = this.cv, r = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    var W = Math.max(200, Math.round(r.width || cv.width)), H = Math.max(120, Math.round(r.height || cv.height));
+    this.W = W; this.H = H; this.dpr = dpr; this.word = this.wordOpt != null ? this.wordOpt : W >= 640;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    var cw = W < 600 ? Math.max(3.6, W / 104) : Math.max(4.6, Math.min(7, W / 230));
+    this.cw = cw; this.ch = cw / 0.6; this.cols = Math.ceil(W / cw); this.rows = Math.ceil(H / this.ch);
+    var m = document.createElement("canvas").getContext("2d");
+    var FS = 100; m.font = "900 " + FS + "px " + this.font;
+    var gap = 0.07, wS = m.measureText("S").width, wT = m.measureText("T").width, wE = m.measureText("E").width, wA = m.measureText("A").width * 1.04, wL = m.measureText("L").width;
+    var capH = (m.measureText("H").actualBoundingBoxAscent || FS * 0.73);
+    var total = this.word ? wS + wT + wE + wA + wL + gap * FS * 4 : wA;
+    var k = Math.min((W * 0.86) / total, (H * 0.52) / capH);
+    if (!this.word) k = Math.min((W * 0.62) / wA, (H * 0.6) / capH);
+    this.FS = FS * k; this.capH = capH * k; this.gap = gap * FS * k;
+    var ws = [wS, wT, wE, wA, wL].map(function (v) { return v * k; });
+    var x0 = (W - total * k) / 2;
+    this.base = H * (this.word ? 0.6 : 0.68) + this.capH / 2 - this.capH * 0.12;
+    this.xs = []; var acc = x0; for (var i = 0; i < 5; i++) { this.xs.push(acc); acc += ws[i] + this.gap; }
+    this.tw = ws[3]; this.tcx = this.word ? this.xs[3] + ws[3] / 2 : W / 2;
+    this.depth = Math.max(6, Math.round(this.FS * 0.05)); this.dx = this.FS * 0.0052; this.dy = this.FS * 0.004;
+    this.stars = []; var R = rng(7 + W);
+    var n = Math.round(this.cols * this.rows / 70);
+    for (i = 0; i < n; i++) this.stars.push([Math.floor(R() * this.cols), Math.floor(R() * this.rows), R() < 0.2 ? "+" : ".", R()]);
+    this.static = this.word ? this.renderLetters() : null;
+  };
+  Scene.prototype.mask = function (draw) {
+    var K = 3, big = document.createElement("canvas"); big.width = this.W * K; big.height = this.H * K;
+    var b = big.getContext("2d"); b.scale(K, K); draw.call(this, b);
+    var sm = document.createElement("canvas"); sm.width = this.cols; sm.height = this.rows;
+    var s = sm.getContext("2d"); s.imageSmoothingEnabled = true; s.imageSmoothingQuality = "high";
+    s.drawImage(big, 0, 0, this.cols * this.cw * K, this.rows * this.ch * K, 0, 0, this.cols, this.rows);
+    return s.getImageData(0, 0, this.cols, this.rows).data;
+  };
+  Scene.prototype.extrude = function (b, fn) {
+    for (var k = this.depth; k >= 1; k--) { b.fillStyle = "rgb(0," + Math.round(110 + 145 * (1 - k / this.depth)) + ",0)"; fn(this.dx * k, this.dy * k); }
+    b.fillStyle = "rgb(255,0,0)"; fn(0, 0);
+  };
+  Scene.prototype.renderLetters = function () {
+    var me = this, L = ["S", "T", "E", null, "L"];
+    var d = this.mask(function (b) {
+      b.font = "900 " + me.FS + "px " + me.font; b.textBaseline = "alphabetic";
+      L.forEach(function (ch, i) { if (!ch) return; me.extrude(b, function (ox, oy) { b.fillText(ch, me.xs[i] + ox, me.base + oy); }); });
+    });
+    var c = document.createElement("canvas"); c.width = this.W * this.dpr; c.height = this.H * this.dpr;
+    var x = c.getContext("2d"); x.scale(this.dpr, this.dpr); this.cells(x, d, "w");
+    return c;
+  };
+  Scene.prototype.tagPath = function (b, ox, oy, th, lift) {
+    var w = this.tw, h = this.capH, hx = w * 0.5, hy = h * 0.36;
+    var px = this.tcx, py = this.base - h - lift + hy; // pivot: the hole
+    b.save(); b.translate(px + ox, py + oy); b.rotate(th); b.translate(-hx, -hy);
+    b.beginPath(); b.moveTo(w * 0.5, 0); b.lineTo(w, h * 0.4); b.lineTo(w, h); b.lineTo(w * 0.66, h); b.lineTo(w * 0.5, h * 0.74);
+    b.lineTo(w * 0.34, h); b.lineTo(0, h); b.lineTo(0, h * 0.4); b.closePath(); b.restore();
+    return [px, py];
+  };
+  Scene.prototype.cells = function (x, d, mode, ring) {
+    var cw = this.cw, ch = this.ch, n = RAMP.length - 1;
+    x.font = "700 " + (ch * 0.92).toFixed(2) + "px " + this.mono; x.textBaseline = "top";
+    for (var j = 0; j < this.rows; j++) for (var i = 0; i < this.cols; i++) {
+      var p = (j * this.cols + i) * 4, R = d[p] / 255, G = d[p + 1] / 255, A = d[p + 3] / 255;
+      if (A < 0.06) continue;
+      var px = i * cw, py = j * ch, g, col;
+      if (R > 0.12 && R >= G * 0.6) {
+        var c = Math.min(1, R / Math.max(A, 0.001)) * A;
+        g = RAMP[Math.max(1, Math.min(n, Math.round(1 + c * (n - 1) * 0.94)))];
+        var Lt = 175 + 80 * c;
+        if (ring && ring(i, j)) { g = "O"; col = "rgb(255,170,170)"; }
+        else col = mode === "w" ? "rgb(" + (Lt | 0) + "," + (Lt | 0) + "," + (Lt | 0) + ")" : "rgb(255," + (Lt * 0.24 | 0) + "," + (Lt * 0.24 | 0) + ")";
+      } else {
+        var dep = G / Math.max(A, 0.001), a = Math.min(1, A) * (0.25 + 0.55 * dep);
+        g = RAMP[Math.max(1, Math.min(7, Math.round(1 + dep * 6)))];
+        col = mode === "w" ? "rgba(150,150,150," + a.toFixed(3) + ")" : "rgba(190,20,30," + (a + 0.1).toFixed(3) + ")";
+      }
+      x.fillStyle = col; x.fillText(g, px, py);
+    }
+  };
+  Scene.prototype.poke = function (v) { this.om += v; };
+  Scene.prototype.yank = function () { this.lv = -this.H * 0.06; };
+  Scene.prototype.frame = function (t) {
+    var x = this.x, W = this.W, H = this.H, me = this;
+    if (!this.t0) this.t0 = t; var dt = Math.min(0.05, (t - (this.last || t)) / 1000); this.last = t;
+    // pendulum
+    var target = -0.06 + 0.035 * Math.sin((t - this.t0) / 1000 * 1.1);
+    this.om += (-(this.th - target) * 9 - this.om * 1.6) * dt; this.th += this.om * dt;
+    this.th = Math.max(-0.6, Math.min(0.6, this.th));
+    // yank spring
+    this.lv += (-this.lift * 30 - this.lv * 7) * dt; this.lift += this.lv * dt * 60;
+    var lift = this.capH * 0.06 + this.lift * -1;
+    x.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    x.fillStyle = "#000"; x.fillRect(0, 0, W, H);
+    var gy = this.base - this.capH * 0.5, g = x.createRadialGradient(this.tcx, gy, 10, this.tcx, gy, this.capH * 1.25);
+    g.addColorStop(0, "rgba(255,40,50,.17)"); g.addColorStop(1, "rgba(255,40,50,0)"); x.fillStyle = g; x.fillRect(0, 0, W, H);
+    x.font = "400 " + (this.ch * 0.8).toFixed(1) + "px " + this.mono; x.textBaseline = "top";
+    var tw = (t - this.t0) / 1000;
+    this.stars.forEach(function (s) {
+      var a = 0.12 + 0.18 * (0.5 + 0.5 * Math.sin(tw * (0.6 + s[3]) + s[3] * 9));
+      x.fillStyle = "rgba(200,200,200," + a.toFixed(3) + ")"; x.fillText(s[2], s[0] * me.cw, s[1] * me.ch);
+    });
+    if (this.static) x.drawImage(this.static, 0, 0, W, H);
+    var th = this.th, hole = null, HR = this.capH * 0.12;
+    var d = this.mask(function (b) {
+      me.extrude(b, function (ox, oy) { me.tagPath(b, ox, oy, th, lift); b.fill(); });
+      hole = me.tagPath(b, 0, 0, th, lift);
+      b.globalCompositeOperation = "destination-out"; b.beginPath(); b.arc(hole[0], hole[1], HR, 0, 7); b.fill();
+      b.globalCompositeOperation = "source-over";
+    });
+    var ci = hole[0] / this.cw, cj = hole[1] / this.ch, rr = HR / this.cw, rj = HR / this.ch;
+    this.cells(x, d, "r", function (i, j) { var u = (i + 0.5 - ci) / rr, v = (j + 0.5 - cj) / rj, q = u * u + v * v; return q > 1 && q < 2.1; });
+    // string: from the hole up and out of frame
+    x.fillStyle = "rgba(255,255,255,.85)"; x.font = "700 " + (this.ch * 0.92).toFixed(2) + "px " + this.mono;
+    var sx = hole[0], sy = hole[1] - HR * 0.4, ex = this.tcx - this.capH * 0.12, steps = Math.ceil(sy / this.ch) + 1, seen = {};
+    for (var s2 = 0; s2 <= steps * 2; s2++) {
+      var u2 = s2 / (steps * 2), yy = sy * (1 - u2), xx = sx + (ex - sx) * u2 * u2 + Math.sin(th) * this.capH * 0.15 * u2 * (1 - u2);
+      var ci2 = Math.floor(xx / this.cw), cj2 = Math.floor(yy / this.ch), key = ci2 + ":" + cj2;
+      if (seen[key] || cj2 < 0) continue; seen[key] = 1; x.fillText("|", ci2 * this.cw, cj2 * this.ch);
+    }
+    this.frames++;
+  };
+  Scene.prototype.hit = function (px, py) {
+    var dx = px - this.tcx, top = this.base - this.capH * 1.1;
+    return Math.abs(dx) < this.tw * 0.6 && py > top && py < this.base + this.capH * 0.1;
+  };
+  root.StealScene = Scene;
+})(this);
+</script>
+<script>
+// shared tag rules: used by api/tag.js and inlined into the page
+(function (root, f) { if (typeof module === "object" && module.exports) module.exports = f(); else root.TAG = f(); })(this, function () {
+  var R = { MELT: 0.05, MAX_MULT: 2, CUT: 0.9, FLOOR: 0.01, TOL: 0.0005 };
+  // price of the tag t seconds after it was set at s
+  function priceAt(s, setAt, t) {
+    if (s == null) return null;
+    var h = Math.max(0, t - setAt) / 3600;
+    return Math.max(R.FLOOR, s * Math.pow(1 - R.MELT, h));
+  }
+  function parseMemo(m) {
+    if (!m || typeof m !== "string") return null;
+    var x = m.match(/(?:^|\s|\])steal:(\d{1,6}(?:\.\d{1,9})?)?(?=$|\s)/i);
+    if (x) return { kind: "steal", price: x[1] != null ? Number(x[1]) : null };
+    x = m.match(/(?:^|\s|\])pay:([1-9A-HJ-NP-Za-km-z]{16})(?=$|\s)/);
+    if (x) return { kind: "pay", ref: x[1] };
+    if (/(?:^|\s|\])fee(?=$|\s)/i.test(m)) return { kind: "fee" };
+    return null;
+  }
+  // events: [{sig,t,kind,from,amount(SOL),price,ref}] any order. house = genesis price.
+  function replay(events, house) {
+    var ev = events.slice().sort(function (a, b) { return a.t - b.t || (a.sig < b.sig ? -1 : 1); });
+    var st = { holder: null, paid: null, set: house == null ? null : Number(house), setAt: null, steals: [], fees: [], holders: {} };
+    var pays = {};
+    ev.forEach(function (e) { if (e.kind === "pay" && e.ref) pays[e.ref] = (pays[e.ref] || 0) + (e.amount || 0); });
+    ev.forEach(function (e) {
+      if (e.kind === "fee") { st.fees.push({ sig: e.sig, t: e.t, to: e.to || null, amount: e.amount || 0 }); return; }
+      if (e.kind !== "steal") return;
+      var ask = st.set == null ? null : (st.setAt == null ? st.set : priceAt(st.set, st.setAt, e.t));
+      var row = { sig: e.sig, t: e.t, thief: e.from, paid: e.amount, ask: ask, from: st.holder, set: null, status: "void", why: "" };
+      if (ask == null) row.why = "not live";
+      else if (!(e.amount > 0) || e.amount < ask * (1 - R.TOL)) row.why = "paid under ask";
+      else if (e.from && e.from === st.holder) row.why = "already holder";
+      else {
+        var want = e.price == null ? e.amount : e.price;
+        var set = Math.min(Math.max(want, R.FLOOR), e.amount * R.MAX_MULT);
+        row.set = set; row.status = "ok";
+        row.owed = st.holder ? e.amount * R.CUT : 0;
+        row.burn = e.amount - row.owed;
+        var k = e.sig.slice(0, 16);
+        row.payout = !st.holder ? "house" : (pays[k] ? "paid" : "pending");
+        st.holder = e.from; st.paid = e.amount; st.set = set; st.setAt = e.t;
+      }
+      if (row.status === "void") row.payout = e.amount > 0 ? (pays[e.sig.slice(0, 16)] ? "refunded" : "pending") : "none";
+      st.steals.push(row);
+    });
+    var c = {};
+    st.steals.forEach(function (r) { if (r.status === "ok") c[r.thief] = (c[r.thief] || 0) + 1; });
+    st.holders = c;
+    st.steals.reverse(); st.fees.reverse();
+    return st;
+  }
+  // what you get if you pay p, set s and get stolen after h hours
+  function plan(p, s, h, feesPerDay) {
+    if (!(p > 0)) return null;
+    var set = Math.min(Math.max(s, R.FLOOR), p * R.MAX_MULT);
+    var ask = Math.max(R.FLOOR, set * Math.pow(1 - R.MELT, Math.max(0, h)));
+    var back = ask * R.CUT, fees = (feesPerDay > 0 ? feesPerDay : 0) * Math.max(0, h) / 24;
+    return { set: set, ask: ask, back: back, fees: fees, net: back + fees - p };
+  }
+  // hours until a price set at s melts down to x
+  function hoursTo(s, x) { if (!(s > 0) || !(x > 0) || x >= s) return 0; return Math.log(x / s) / Math.log(1 - R.MELT); }
+  return { R: R, priceAt: priceAt, parseMemo: parseMemo, replay: replay, plan: plan, hoursTo: hoursTo };
+});
+</script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var R = TAG.R, S = { cfg: null, tag: null, mkt: null, solUsd: null, tagErr: false };
+  var MEMO = "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr";
+  function short(a) { return a ? a.slice(0, 4) + "…" + a.slice(-4) : "—"; }
+  function sol(v, d) { if (v == null || !isFinite(v)) return "—"; d = d == null ? (v >= 100 ? 2 : v >= 1 ? 3 : 4) : d; return v.toFixed(d); }
+  function usd(v) {
+    if (v == null || !isFinite(v)) return "—";
+    var a = Math.abs(v);
+    if (a >= 1e9) return "$" + (v / 1e9).toFixed(2) + "B";
+    if (a >= 1e6) return "$" + (v / 1e6).toFixed(2) + "M";
+    if (a >= 1e4) return "$" + (v / 1e3).toFixed(1) + "K";
+    if (a >= 1) return "$" + v.toFixed(2);
+    if (a === 0) return "$0";
+    var s = v.toPrecision(3); return "$" + (s.indexOf("e") > -1 ? Number(s).toFixed(10).replace(/0+$/, "") : s);
+  }
+  function dur(s) {
+    if (s == null || !isFinite(s) || s < 0) return "—";
+    s = Math.floor(s); var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    if (d) return d + "d " + h + "h"; if (h) return h + "h " + m + "m"; return m + "m " + (x < 10 ? "0" : "") + x + "s";
+  }
+  function ago(t) { var s = Date.now() / 1000 - t; return s < 60 ? "just now" : dur(s).split(" ")[0] + " ago"; }
+  function toast(t) { var el = $("toast"); el.textContent = t; el.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(function () { el.classList.remove("show"); }, 1600); }
+  function copy(v, what) {
+    if (!v) return;
+    var done = function () { toast((what || "copied") + " ✓"); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(v).then(done, function () { fallback(v); done(); });
+    else { fallback(v); done(); }
+  }
+  function fallback(v) { var t = document.createElement("textarea"); t.value = v; t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); } catch (e) {} t.remove(); }
+  function set(id, v) { var el = $(id); if (el && el.textContent !== v) { el.textContent = v; } return el; }
+  function link(id, addr, kind) {
+    var el = $(id); if (!el) return;
+    if (!addr) { el.textContent = "—"; return; }
+    el.innerHTML = ""; var a = document.createElement("a"); a.href = "https://solscan.io/" + (kind || "account") + "/" + addr; a.target = "_blank"; a.rel = "noopener"; a.textContent = short(addr); el.appendChild(a);
+  }
+  function api(p) { return fetch(p, { cache: "no-store" }).then(function (r) { return r.json().then(function (j) { if (!r.ok) j.error = j.error || "unavailable"; return j; }); }); }
+
+  // ---------- scene ----------
+  var cv = $("scene"), sc = null, motion = !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches), lastX = null;
+  function boot() {
+    sc = new StealScene(cv);
+    var run = function (t) { if (!document.hidden) sc.frame(t); if (motion) requestAnimationFrame(run); };
+    if (motion) requestAnimationFrame(run); else sc.frame(performance.now());
+    var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { sc.layout(); if (!motion) sc.frame(performance.now()); }, 120); });
+    cv.addEventListener("pointermove", function (e) {
+      var r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      if (lastX != null && sc.hit(x, y)) sc.poke((x - lastX) * 0.02);
+      lastX = x; cv.style.cursor = sc.hit(x, y) ? "grab" : "default";
+    });
+    cv.addEventListener("pointerleave", function () { lastX = null; });
+    cv.addEventListener("click", function (e) {
+      var r = cv.getBoundingClientRect();
+      if (sc.hit(e.clientX - r.left, e.clientY - r.top)) { sc.yank(); sc.poke((Math.random() - 0.5) * 3); cv.dataset.yanks = (+cv.dataset.yanks || 0) + 1; }
+    });
+    window.__scene = sc;
+  }
+  if (document.fonts && document.fonts.load) Promise.race([Promise.all([document.fonts.load("900 100px Inter"), document.fonts.load("700 12px 'JetBrains Mono'")]), new Promise(function (r) { setTimeout(r, 1500); })]).then(boot, boot);
+  else boot();
+
+  // ---------- tag ----------
+  function nowAsk() {
+    var t = S.tag; if (!t || !t.live || t.set == null) return null;
+    return t.setAt == null ? t.set : TAG.priceAt(t.set, t.setAt, Date.now() / 1000);
+  }
+  function renderTag() {
+    var t = S.tag, c = S.cfg, live = !!(t && t.live && !t.error), ask = nowAsk();
+    var dot = $("liveDot");
+    if (S.tagErr || (t && t.error)) { dot.textContent = "chain unavailable"; dot.className = "chip pend"; }
+    else if (live) { dot.textContent = "live"; dot.className = "chip ok"; }
+    else { dot.textContent = "not open yet"; dot.className = "chip"; }
+    var askEl = $("ask");
+    if (ask == null) { set("ask", "—"); askEl.dataset.shown = "0"; set("askUsd", ""); }
+    else { set("ask", sol(ask, 4)); askEl.dataset.shown = "1"; set("askUsd", S.solUsd ? "≈ " + usd(ask * S.solUsd) : ""); }
+    if (live && t.setAt != null && t.set) {
+      var pct = Math.max(0, Math.min(100, ask / t.set * 100));
+      $("meltBar").style.width = pct.toFixed(2) + "%";
+      set("meltL", "set at " + sol(t.set) + " · melting 5% an hour");
+      var next = ask * (1 - R.MELT), secs = ask > R.FLOOR ? 3600 : null;
+      set("meltR", secs ? sol(next, 4) + " in 1h" : "at floor");
+      set("held", dur(Date.now() / 1000 - t.setAt));
+    } else {
+      $("meltBar").style.width = live ? "100%" : "0%";
+      set("meltL", live ? "house price · melts after the first steal" : "melting 5% an hour"); set("meltR", "—");
+      set("held", "—");
+    }
+    if (live && t.holder) link("holder", t.holder); else set("holder", live ? "the house" : "—");
+    set("paid", live && t.paid != null ? sol(t.paid) + " SOL" : "—");
+    set("bal", live && t.balance != null ? sol(t.balance) + " SOL" : "—");
+    set("tagSrc", (t && t.error) || S.tagErr ? "chain unavailable right now · retrying" : live ? "live from solana · " + (t.scanned || 0) + " tag txs read · " + ago(t.t) : "—");
+    // steal box
+    var btn = $("stealBtn");
+    if (!live || ask == null) { btn.disabled = true; btn.textContent = (t && t.error) || S.tagErr ? "chain unavailable" : "not open yet"; }
+    else { btn.disabled = false; btn.textContent = "steal it · " + sol(ask, 4) + " SOL"; }
+    var mp = $("myPrice"), sl = $("mySlide");
+    if (ask != null) {
+      if (!mp.dataset.touched) mp.value = sol(ask * +sl.value, 4);
+      set("minP", "min " + sol(R.FLOOR, 2));
+      set("maxP", "max " + sol(ask * R.MAX_MULT, 4));
+    } else { if (!mp.dataset.touched) mp.value = ""; set("minP", "—"); set("maxP", "max 2× what you pay"); }
+    var amt = ask != null ? Math.ceil(ask * 1e9) / 1e9 : null, my = myPrice();
+    var m1 = $("mAmt"), m2 = $("mTo"), m3 = $("mMemo");
+    m1.textContent = amt != null ? sol(amt, 9).replace(/0+$/, "").replace(/\.$/, "") : "—"; m1.dataset.copy = amt != null ? m1.textContent : "";
+    m2.textContent = c && c.tag ? short(c.tag) : "—"; m2.dataset.copy = (c && c.tag) || "";
+    m3.textContent = amt != null && my != null ? "steal:" + memoNum(my) : "—"; m3.dataset.copy = amt != null && my != null ? m3.textContent : "";
+  }
+  function memoNum(v) { return (Math.round(v * 1e4) / 1e4).toString(); }
+  function myPrice() {
+    var ask = nowAsk(), v = parseFloat(($("myPrice").value || "").replace(",", "."));
+    if (ask == null || !isFinite(v)) return null;
+    return Math.min(Math.max(v, R.FLOOR), ask * R.MAX_MULT);
+  }
+  $("mySlide").addEventListener("input", function () { var a = nowAsk(); $("myPrice").dataset.touched = ""; if (a != null) $("myPrice").value = sol(a * +this.value, 4); renderTag(); });
+  $("myPrice").addEventListener("input", function () { this.dataset.touched = "1"; renderTag(); });
+  $("myPrice").addEventListener("blur", function () { var v = myPrice(); if (v != null) this.value = sol(v, 4); renderTag(); });
+  ["mAmt", "mTo", "mMemo"].forEach(function (id) { $(id).addEventListener("click", function () { copy(this.dataset.copy, id === "mTo" ? "address copied" : id === "mMemo" ? "memo copied" : "amount copied"); }); });
+  $("ca").addEventListener("click", function () { if (S.cfg && S.cfg.mint) copy(S.cfg.mint, "CA copied"); else toast("CA not set yet"); });
+
+  // ---------- wallet steal ----------
+  function provider() {
+    var w = window;
+    if (w.phantom && w.phantom.solana && w.phantom.solana.isPhantom) return w.phantom.solana;
+    if (w.solflare && w.solflare.isSolflare) return w.solflare;
+    if (w.backpack && w.backpack.solana) return w.backpack.solana;
+    if (w.solana) return w.solana;
+    return null;
+  }
+  function msg(t, k) { var el = $("msg"); el.textContent = t; el.className = "msg" + (k ? " " + k : ""); }
+  function loadWeb3() {
+    if (window.solanaWeb3) return Promise.resolve(window.solanaWeb3);
+    return new Promise(function (ok, no) {
+      var s = document.createElement("script"); s.src = "https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/lib/index.iife.min.js";
+      s.onload = function () { window.solanaWeb3 ? ok(window.solanaWeb3) : no(new Error("wallet lib failed")); }; s.onerror = function () { no(new Error("wallet lib failed to load")); };
+      document.head.appendChild(s);
+    });
+  }
+  function rpc(method, params) {
+    return fetch("/api/rpc", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ method: method, params: params }) })
+      .then(function (r) { return r.json(); }).then(function (j) { if (j.error || !j.result) throw new Error(j.error || "rpc failed"); return j.result; });
+  }
+  var busy = false;
+  $("stealBtn").addEventListener("click", function () {
+    if (busy) return; var ask = nowAsk(), c = S.cfg, my = myPrice();
+    if (ask == null || !c || !c.tag) return;
+    var p = provider();
+    if (!p) { msg("no wallet found. use the manual send below.", "bad"); $("manual").classList.add("flash"); setTimeout(function () { $("manual").classList.remove("flash"); }, 900); return; }
+    busy = true; msg("connecting wallet…");
+    var lam = Math.ceil(ask * 1e9), me = null, W3;
+    Promise.resolve(p.connect()).then(function (r) {
+      me = (r && r.publicKey) || p.publicKey; if (!me) throw new Error("wallet did not connect");
+      me = me.toString();
+      if (S.tag && S.tag.holder === me) throw new Error("you already hold the tag");
+      msg("building steal · " + sol(lam / 1e9, 4) + " SOL");
+      return loadWeb3();
+    }).then(function (w3) { W3 = w3; return rpc("getLatestBlockhash", [{ commitment: "confirmed" }]); }).then(function (bh) {
+      var from = new W3.PublicKey(me), tx = new W3.Transaction({ feePayer: from, recentBlockhash: (bh.value || bh).blockhash });
+      tx.add(W3.SystemProgram.transfer({ fromPubkey: from, toPubkey: new W3.PublicKey(c.tag), lamports: lam }));
+      tx.add(new W3.TransactionInstruction({ programId: new W3.PublicKey(MEMO), keys: [{ pubkey: from, isSigner: true, isWritable: false }], data: new TextEncoder().encode("steal:" + memoNum(my == null ? lam / 1e9 : my)) }));
+      msg("approve in your wallet…");
+      return p.signAndSendTransaction(tx);
+    }).then(function (r) {
+      var sig = r && (r.signature || r); if (typeof sig !== "string") throw new Error("no signature returned");
+      msg("sent · waiting for chain…");
+      var tries = 0;
+      return new Promise(function (ok, no) {
+        (function poll() {
+          rpc("getSignatureStatuses", [ [sig] ]).then(function (s) {
+            var v = s.value && s.value[0];
+            if (v && v.err) return no(new Error("failed on chain"));
+            if (v && (v.confirmationStatus === "confirmed" || v.confirmationStatus === "finalized")) return ok(sig);
+            if (++tries > 40) return ok(sig); setTimeout(poll, 1500);
+          }).catch(function () { if (++tries > 40) ok(sig); else setTimeout(poll, 1500); });
+        })();
+      });
+    }).then(function (sig) { msg("stolen. it's yours until someone pays the ask · " + short(sig), "good"); setTimeout(loadTag, 2500); })
+      .catch(function (e) { msg((e && e.message ? e.message : "cancelled").toLowerCase().slice(0, 90), "bad"); })
+      .then(function () { busy = false; });
+  });
+
+  // ---------- price it ----------
+  function num(id) { var v = parseFloat(($(id).value || "").replace(",", ".")); return isFinite(v) ? v : null; }
+  function plan() {
+    var p = num("pPay"), s = num("pSet"), h = +$("pH").value, f = num("pFee") || 0;
+    set("pHv", String(h));
+    var r = p != null && s != null ? TAG.plan(p, s, h, f) : null, ch = $("pChart");
+    if (!r) { ["oAsk", "oBack", "oFee", "oNet"].forEach(function (k) { set(k, "—"); }); set("oBe", "—"); ch.innerHTML = ""; return; }
+    set("oAsk", sol(r.ask) + " SOL"); set("oBack", sol(r.back) + " SOL"); set("oFee", sol(r.fees) + " SOL");
+    var n = set("oNet", (r.net >= 0 ? "+" : "") + sol(r.net) + " SOL"); n.className = "val net " + (r.net >= 0 ? "pos" : "neg");
+    var be = null; for (var x = 0; x <= 240; x += 0.25) { var q = TAG.plan(p, s, x, f); if (q.net < 0) { be = x; break; } }
+    var capped = s > p * R.MAX_MULT ? " · capped at 2× (" + sol(p * R.MAX_MULT) + ")" : "";
+    set("oBe", (be == null ? "stays in profit for 10 days+" : be === 0 ? "a loss from the first minute" : "profit if stolen within " + (be >= 24 ? (be / 24).toFixed(1) + " days" : be.toFixed(1) + " h")) + capped);
+    // chart: ask over 72h, your break-even line
+    var W = 600, H = 220, pad = 18, maxH = 72, top = r.set * 1.05, pts = [];
+    for (var i = 0; i <= 120; i++) { var hh = maxH * i / 120, a = Math.max(R.FLOOR, r.set * Math.pow(1 - R.MELT, hh)); pts.push([pad + (W - 2 * pad) * i / 120, H - pad - (H - 2 * pad) * a / top]); }
+    var path = "M" + pts.map(function (q) { return q[0].toFixed(1) + " " + q[1].toFixed(1); }).join(" L");
+    var bey = H - pad - (H - 2 * pad) * Math.min(top, p / R.CUT) / top, mx = pad + (W - 2 * pad) * Math.min(h, maxH) / maxH, my2 = H - pad - (H - 2 * pad) * r.ask / top;
+    ch.innerHTML = '<line x1="' + pad + '" x2="' + (W - pad) + '" y1="' + bey.toFixed(1) + '" y2="' + bey.toFixed(1) + '" stroke="#5a1a1f" stroke-dasharray="4 5"/>' +
+      '<path d="' + path + ' L' + (W - pad) + ' ' + (H - pad) + ' L' + pad + ' ' + (H - pad) + 'Z" fill="rgba(255,42,54,.08)"/>' +
+      '<path d="' + path + '" fill="none" stroke="#ff2a36" stroke-width="2" vector-effect="non-scaling-stroke"/>' +
+      '<line x1="' + mx.toFixed(1) + '" x2="' + mx.toFixed(1) + '" y1="' + pad + '" y2="' + (H - pad) + '" stroke="#333"/>' +
+      '<circle cx="' + mx.toFixed(1) + '" cy="' + my2.toFixed(1) + '" r="5" fill="#fff"/>';
+  }
+  ["pPay", "pSet", "pH", "pFee"].forEach(function (id) { $(id).addEventListener("input", plan); });
+  plan();
+
+  // ---------- log ----------
+  function renderLog() {
+    var t = S.tag, rows = $("rows"), crew = $("crew"), hc = $("hChart");
+    var list = t && t.live && !t.error ? t.steals || [] : null;
+    set("logN", list ? list.filter(function (r) { return r.status === "ok"; }).length + " steals" : "—");
+    if (!list || !list.length) {
+      rows.innerHTML = '<tr><td colspan="5" class="empty">' + (t && t.error ? "chain unavailable right now" : "—") + "</td></tr>";
+      crew.innerHTML = "<li><span>—</span><b>—</b></li>"; hc.innerHTML = ""; set("hHint", list ? "no steals yet · the first one starts the melt" : "—"); return;
+    }
+    rows.innerHTML = "";
+    list.forEach(function (r) {
+      var tr = document.createElement("tr");
+      var chip = r.status !== "ok" ? '<span class="chip void" title="' + r.why + '">void · ' + (r.payout || "") + "</span>" : r.payout === "paid" ? '<span class="chip ok">paid</span>' : r.payout === "house" ? '<span class="chip">house</span>' : '<span class="chip pend">pending</span>';
+      tr.innerHTML = '<td><a href="https://solscan.io/tx/' + r.sig + '" target="_blank" rel="noopener">' + ago(r.t) + "</a></td><td>" + short(r.thief) + '</td><td class="r">' + sol(r.paid) + '</td><td class="r">' + (r.set != null ? sol(r.set) : "—") + "</td><td>" + chip + "</td>";
+      rows.appendChild(tr);
+    });
+    var c = t.crew || {}, ks = Object.keys(c).sort(function (a, b) { return c[b] - c[a]; }).slice(0, 8);
+    crew.innerHTML = ks.length ? "" : "<li><span>—</span><b>—</b></li>";
+    ks.forEach(function (k) { var li = document.createElement("li"); li.innerHTML = "<span>" + short(k) + "</span><b>" + c[k] + "×</b>"; crew.appendChild(li); });
+    // sawtooth history
+    var ok = list.filter(function (r) { return r.status === "ok"; }).slice().reverse();
+    if (!ok.length) { hc.innerHTML = ""; set("hHint", "no valid steals yet"); return; }
+    var now = Date.now() / 1000, t0 = ok[0].t - 600, W = 1000, H = 220, pad = 14, pts = [], top = 0;
+    ok.forEach(function (r) { top = Math.max(top, r.set, r.paid); });
+    top *= 1.08; var X = function (tt) { return pad + (W - 2 * pad) * (tt - t0) / Math.max(1, now - t0); }, Y = function (v) { return H - pad - (H - 2 * pad) * v / top; };
+    for (var i = 0; i < ok.length; i++) {
+      var r = ok[i], end = i + 1 < ok.length ? ok[i + 1].t : now, n = 24;
+      pts.push([X(r.t), Y(r.paid)]);
+      for (var k = 0; k <= n; k++) { var tt = r.t + (end - r.t) * k / n; pts.push([X(tt), Y(TAG.priceAt(r.set, r.t, tt))]); }
+    }
+    var d = "M" + pts.map(function (q) { return q[0].toFixed(1) + " " + q[1].toFixed(1); }).join(" L");
+    hc.innerHTML = '<path d="' + d + '" fill="none" stroke="#ff2a36" stroke-width="2" vector-effect="non-scaling-stroke"/>' + ok.map(function (r) { return '<circle cx="' + X(r.t).toFixed(1) + '" cy="' + Y(r.paid).toFixed(1) + '" r="3.5" fill="#fff"/>'; }).join("");
+    set("hHint", "white dots = steals · red = the ask melting · peak " + sol(top / 1.08) + " SOL");
+  }
+
+  // ---------- coin ----------
+  function renderMkt() {
+    var m = S.mkt, p = m && m.pair;
+    var ids = ["mPrice", "mCap", "mVol", "mLiq", "mChg", "mTx"];
+    if (!m || m.error || !p) {
+      ids.forEach(function (k) { set(k, "—"); });
+      set("mSrc", m && m.error ? "market unavailable right now · retrying" : m && m.live ? "no pool found yet" : "—"); return;
+    }
+    set("mPrice", usd(p.price)); set("mCap", usd(p.mcap)); set("mVol", usd(p.vol)); set("mLiq", usd(p.liq));
+    set("mChg", p.chg == null ? "—" : (p.chg > 0 ? "+" : "") + p.chg.toFixed(1) + "%");
+    set("mTx", p.buys == null ? "—" : p.buys + " / " + (p.sells == null ? "—" : p.sells));
+    set("mSrc", "live from dexscreener" + (p.dex ? " · " + p.dex : "") + " · " + ago(m.t / 1000));
+    if (p.price && p.priceSol) S.solUsd = p.price / p.priceSol;
+  }
+
+  // ---------- data ----------
+  function loadTag() {
+    return api("/api/tag").then(function (j) { S.tag = j; S.tagErr = false; }, function () { S.tagErr = true; }).then(function () { renderTag(); renderLog(); });
+  }
+  function loadMkt() { return api("/api/market").then(function (j) { S.mkt = j; }, function () { S.mkt = { error: "x" }; }).then(function () { renderMkt(); renderTag(); }); }
+  api("/api/config").then(function (c) { S.cfg = c; }, function () { S.cfg = null; }).then(function () {
+    set("caV", S.cfg && S.cfg.mint ? short(S.cfg.mint) : "—");
+    renderTag(); loadTag(); loadMkt();
+    setInterval(loadTag, 15000); setInterval(loadMkt, 60000);
+    setInterval(renderTag, 1000);
+    document.body.dataset.ready = "1";
+  });
+
+  // ---------- reveal ----------
+  var rv = [].slice.call(document.querySelectorAll(".rv"));
+  if ("IntersectionObserver" in window && motion) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("vis"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -8% 0px" });
+    rv.forEach(function (el) { io.observe(el); });
+    var sweep = function () { rv.forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add("vis"); }); };
+    addEventListener("hashchange", sweep); addEventListener("load", sweep); var tick = 0; addEventListener("scroll", function () { if (tick) return; tick = requestAnimationFrame(function () { tick = 0; sweep(); if (scrollY + innerHeight >= document.body.scrollHeight - 4) rv.forEach(function (el) { el.classList.add("vis"); }); }); }, { passive: true }); setTimeout(sweep, 50);
+  } else rv.forEach(function (el) { el.classList.add("vis"); });
+})();
+</script>
+</body>
+</html>
