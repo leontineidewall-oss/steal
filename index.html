@@ -40,6 +40,16 @@ nav .wrap{display:flex;align-items:center;gap:22px;height:58px}
 .hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:pan-y}
 .hero .tl{position:absolute;left:0;right:0;bottom:7%;text-align:center;font:700 12px var(--mono);letter-spacing:.45em;color:#7a7a7a;pointer-events:none;padding-left:.45em}
 .hero .tl b{color:#fff;font-weight:700}
+.hero .tl{bottom:calc(7% + 64px)}
+.cta{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);display:inline-flex;align-items:center;height:44px;padding:0 22px;border-radius:999px;background:var(--red);color:#fff;text-decoration:none;font:800 15px var(--sans);letter-spacing:-.01em;white-space:nowrap;box-shadow:0 0 40px rgba(255,42,54,.35);transition:filter .15s,transform .15s}
+.cta:hover{filter:brightness(1.12);transform:translateX(-50%) translateY(-1px)}
+.hint2{position:absolute;right:24px;top:18px;font:400 10px var(--mono);letter-spacing:.24em;text-transform:uppercase;color:#3d3d3d;pointer-events:none}
+.sbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:30;display:none;align-items:center;gap:12px;background:rgba(10,10,10,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #222;border-radius:16px;padding:10px 10px 10px 16px;transform:translateY(120%);transition:transform .25s}
+.sbar.on{transform:none}
+.sbar .a{font:800 20px var(--sans);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.sbar .a small{font:700 10px var(--mono);color:var(--mid);margin-left:4px}
+.sbar .s{font:400 10px var(--mono);color:var(--mid);letter-spacing:.06em}
+.sbar a{margin-left:auto;height:42px;padding:0 18px;border-radius:12px;background:var(--red);color:#fff;font:800 14px var(--sans);text-decoration:none;display:inline-flex;align-items:center}
 h1.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 section{padding-top:88px;padding-bottom:88px;border-top:1px solid var(--line);scroll-margin-top:58px}
 .k{font:400 11px var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--mid);display:flex;gap:14px;align-items:center;margin-bottom:26px}
@@ -81,8 +91,8 @@ input[type=range]{width:100%;margin:16px 0 4px;accent-color:var(--red)}
 .rule .n{font:400 11px var(--mono);color:var(--red);letter-spacing:.2em}
 .rule .w{font:900 46px/1 var(--sans);letter-spacing:-.04em;margin-top:auto}
 .rule .d{font:400 13px var(--mono);color:var(--mid);margin-top:10px}
-.rule pre{font:700 15px/1.1 var(--mono);color:#555;margin-top:18px;white-space:pre}
-.rule pre b{color:var(--red);font-weight:700}
+.rule .g{font:800 54px/1 var(--mono);color:var(--red);letter-spacing:-.04em;margin-top:22px;text-shadow:0 0 30px rgba(255,42,54,.35)}
+.rule .g small{font-size:.38em;color:#6a2a2e;margin-left:4px;letter-spacing:0}
 .after{margin-top:22px;font:400 13px var(--mono);color:var(--mid);display:flex;flex-wrap:wrap;gap:10px 28px}
 .after span::before{content:"→ ";color:var(--red)}
 .plan{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px}
@@ -133,7 +143,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
 @keyframes fl{0%{color:var(--red2)}100%{color:inherit}}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 @media (max-width:900px){.live,.plan,.logwrap{grid-template-columns:minmax(0,1fr)}.rules{grid-template-columns:repeat(2,minmax(0,1fr))}.links{display:none}.ca{margin-left:auto}}
-@media (max-width:560px){.wrap{padding-left:16px;padding-right:16px}.rules,.stats{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:22px}section{padding-top:64px;padding-bottom:64px}.hero{height:440px;min-height:0}.hero .tl{font-size:10px;letter-spacing:.3em}.trust{grid-template-columns:minmax(0,1fr)}.trust>div:nth-child(odd){border-right:0;padding-bottom:6px;border-bottom:0}.trust>div.h:nth-child(2){display:none}.rule{min-height:200px}.ca .lbl{display:none}.grid4 .val{font-size:15px}.out .val{font-size:16px;white-space:normal}.out>div{padding:14px}.mrow{font-size:10px;gap:10px}.ask{font-size:58px}}
+@media (max-width:560px){.wrap{padding-left:16px;padding-right:16px}.rules,.stats{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:22px}section{padding-top:64px;padding-bottom:64px}.hero{height:440px;min-height:0}.hero .tl{font-size:10px;letter-spacing:.3em}.trust{grid-template-columns:minmax(0,1fr)}.trust>div:nth-child(odd){border-right:0;padding-bottom:6px;border-bottom:0}.trust>div.h:nth-child(2){display:none}.rule{min-height:200px}.ca .lbl{display:none}.sbar{display:flex}.hint2{display:none}.cta{height:40px;font-size:14px}.hero .tl{bottom:calc(7% + 56px)}.grid4 .val{font-size:15px}.out .val{font-size:16px;white-space:normal}.out>div{padding:14px}.mrow{font-size:10px;gap:10px}.ask{font-size:58px}}
 </style>
 </head>
 <body>
@@ -146,6 +156,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
   <h1 class="sr">steal</h1>
   <canvas id="scene" aria-label="ascii STEAL wordmark, the A is a red price tag on a string"></canvas>
   <div class="tl"><b>NAME YOUR PRICE</b> &nbsp;·&nbsp; OR LOSE IT</div>
+  <a class="cta" id="heroCta" href="#tag">see the tag</a>
+  <div class="hint2">grab the tag</div>
 </header>
 <main>
 <section id="tag"><div class="wrap">
@@ -183,16 +195,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
   <div class="k"><i>02</i> rules</div>
   <h2>four moves. <em>one tag.</em></h2>
   <div class="rules">
-    <div class="rule rv"><div class="n">01</div><pre>  .--.
- / <b>()</b> \
-|  ◎  |
-'----'</pre><div class="w">pay</div><div class="d">the ask, in SOL</div></div>
-    <div class="rule rv"><div class="n">02</div><pre> ×1 ── ×2
- <b>████</b>░░░░</pre><div class="w">name</div><div class="d">your price, up to 2× what you paid</div></div>
-    <div class="rule rv"><div class="n">03</div><pre> ▇▆▅▄▃▂▁
- <b>-5%</b> / hour</pre><div class="w">melt</div><div class="d">the ask drops 5% every hour</div></div>
-    <div class="rule rv"><div class="n">04</div><pre>  you ← <b>90%</b>
-  burn ← 10%</pre><div class="w">lose</div><div class="d">stolen? you get 90% of their pay</div></div>
+    <div class="rule rv"><div class="n">01</div><div class="g">ask</div><div class="w">pay</div><div class="d">the ask, in SOL</div></div>
+    <div class="rule rv"><div class="n">02</div><div class="g">≤2×</div><div class="w">name</div><div class="d">your price, up to 2× what you paid</div></div>
+    <div class="rule rv"><div class="n">03</div><div class="g">−5%<small>/h</small></div><div class="w">melt</div><div class="d">the ask drops every hour</div></div>
+    <div class="rule rv"><div class="n">04</div><div class="g">90%</div><div class="w">lose</div><div class="d">stolen? you get 90% of their pay</div></div>
   </div>
   <div class="after"><span>holder gets the creator fees</span><span>10% of every steal buys and burns the coin</span><span>floor 0.01 SOL</span></div>
 </div></section>
@@ -269,6 +275,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
 </div></section>
 </main>
 <footer><div class="wrap"><span>steal</span><span>reads solana. never asks for keys.</span></div></footer>
+<div class="sbar" id="sbar"><div><div class="a"><span id="sbAsk">—</span><small>SOL</small></div><div class="s" id="sbSub">—</div></div><a href="#tag" id="sbBtn">the tag</a></div>
 <div class="toast" id="toast"></div>
 <script>
 // steal ascii engine: 3d STEAL wordmark whose A is a swinging red price tag
@@ -296,11 +303,11 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
     var capH = (m.measureText("H").actualBoundingBoxAscent || FS * 0.73);
     var total = this.word ? wS + wT + wE + wA + wL + gap * FS * 4 : wA;
     var k = Math.min((W * 0.86) / total, (H * 0.52) / capH);
-    if (!this.word) k = Math.min((W * 0.62) / wA, (H * 0.6) / capH);
+    if (!this.word) k = Math.min((W * 0.6) / wA, (H * 0.5) / capH);
     this.FS = FS * k; this.capH = capH * k; this.gap = gap * FS * k;
     var ws = [wS, wT, wE, wA, wL].map(function (v) { return v * k; });
     var x0 = (W - total * k) / 2;
-    this.base = H * (this.word ? 0.6 : 0.68) + this.capH / 2 - this.capH * 0.12;
+    this.base = H * (this.word ? 0.5 : 0.54) + this.capH / 2 - this.capH * 0.12;
     this.xs = []; var acc = x0; for (var i = 0; i < 5; i++) { this.xs.push(acc); acc += ws[i] + this.gap; }
     this.tw = ws[3]; this.tcx = this.word ? this.xs[3] + ws[3] / 2 : W / 2;
     this.depth = Math.max(6, Math.round(this.FS * 0.05)); this.dx = this.FS * 0.0052; this.dy = this.FS * 0.004;
@@ -362,12 +369,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
   };
   Scene.prototype.poke = function (v) { this.om += v; };
   Scene.prototype.yank = function () { this.lv = -this.H * 0.06; };
+  Scene.prototype.drag = function (px) { var a = Math.max(-0.55, Math.min(0.55, (px - this.tcx) / (this.tw * 1.4))); this.om = (a - this.th) * 20; this.th = a; this.dragging = true; };
+  Scene.prototype.release = function () { this.dragging = false; };
   Scene.prototype.frame = function (t) {
     var x = this.x, W = this.W, H = this.H, me = this;
     if (!this.t0) this.t0 = t; var dt = Math.min(0.05, (t - (this.last || t)) / 1000); this.last = t;
     // pendulum
     var target = -0.06 + 0.035 * Math.sin((t - this.t0) / 1000 * 1.1);
-    this.om += (-(this.th - target) * 9 - this.om * 1.6) * dt; this.th += this.om * dt;
+    if (!this.dragging) { this.om += (-(this.th - target) * 9 - this.om * 1.6) * dt; this.th += this.om * dt; }
     this.th = Math.max(-0.6, Math.min(0.6, this.th));
     // yank spring
     this.lv += (-this.lift * 30 - this.lv * 7) * dt; this.lift += this.lv * dt * 60;
@@ -400,6 +409,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
       var ci2 = Math.floor(xx / this.cw), cj2 = Math.floor(yy / this.ch), key = ci2 + ":" + cj2;
       if (seen[key] || cj2 < 0) continue; seen[key] = 1; x.fillText("|", ci2 * this.cw, cj2 * this.ch);
     }
+    // the price sticker: live ask on a black plate, riding the tag
+    var lab = this.price == null ? "—" : this.price;
+    x.save(); x.translate(hole[0], hole[1]); x.rotate(th);
+    var fs = Math.max(11, this.capH * 0.15), ly = this.capH * 0.235;
+    x.font = "800 " + fs.toFixed(1) + "px " + this.font; x.textAlign = "center"; x.textBaseline = "middle";
+    var tw3 = x.measureText(lab).width, sfs = fs * 0.42; x.font = "700 " + sfs.toFixed(1) + "px " + this.mono;
+    var uw = x.measureText("SOL").width, pw = Math.min(this.tw * 0.86, tw3 + uw + fs * 1.1), ph = fs * 1.5;
+    x.fillStyle = "rgba(0,0,0,.86)"; x.beginPath();
+    if (x.roundRect) x.roundRect(-pw / 2, ly - ph / 2, pw, ph, fs * 0.28); else x.rect(-pw / 2, ly - ph / 2, pw, ph);
+    x.fill(); x.strokeStyle = "rgba(255,90,100,.55)"; x.lineWidth = 1; x.stroke();
+    x.fillStyle = "#fff"; x.font = "800 " + fs.toFixed(1) + "px " + this.font; x.textAlign = "left";
+    var sx0 = -(tw3 + uw + fs * 0.25) / 2; x.fillText(lab, sx0, ly + fs * 0.04);
+    x.fillStyle = "rgba(255,150,155,.9)"; x.font = "700 " + sfs.toFixed(1) + "px " + this.mono; x.fillText("SOL", sx0 + tw3 + fs * 0.25, ly + fs * 0.12);
+    x.restore(); x.textAlign = "left";
     this.frames++;
   };
   Scene.prototype.hit = function (px, py) {
@@ -520,16 +543,26 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
     var run = function (t) { if (!document.hidden) sc.frame(t); if (motion) requestAnimationFrame(run); };
     if (motion) requestAnimationFrame(run); else sc.frame(performance.now());
     var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { sc.layout(); if (!motion) sc.frame(performance.now()); }, 120); });
+    var down = null, moved = 0;
+    function pos(e) { var r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
+    cv.addEventListener("pointerdown", function (e) {
+      var q = pos(e); if (!sc.hit(q[0], q[1])) return;
+      down = q; moved = 0; try { cv.setPointerCapture(e.pointerId); } catch (x) {} cv.style.cursor = "grabbing";
+    });
     cv.addEventListener("pointermove", function (e) {
-      var r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
-      if (lastX != null && sc.hit(x, y)) sc.poke((x - lastX) * 0.02);
-      lastX = x; cv.style.cursor = sc.hit(x, y) ? "grab" : "default";
+      var q = pos(e);
+      if (down) { moved += Math.abs(q[0] - (lastX == null ? q[0] : lastX)); if (moved > 6) sc.drag(q[0]); }
+      else if (lastX != null && sc.hit(q[0], q[1])) sc.poke((q[0] - lastX) * 0.02);
+      lastX = q[0]; if (!down) cv.style.cursor = sc.hit(q[0], q[1]) ? "grab" : "default";
     });
-    cv.addEventListener("pointerleave", function () { lastX = null; });
-    cv.addEventListener("click", function (e) {
-      var r = cv.getBoundingClientRect();
-      if (sc.hit(e.clientX - r.left, e.clientY - r.top)) { sc.yank(); sc.poke((Math.random() - 0.5) * 3); cv.dataset.yanks = (+cv.dataset.yanks || 0) + 1; }
-    });
+    function up() {
+      if (!down) return;
+      if (moved <= 6) { sc.yank(); sc.poke((Math.random() - 0.5) * 3); cv.dataset.yanks = (+cv.dataset.yanks || 0) + 1; }
+      else cv.dataset.drags = (+cv.dataset.drags || 0) + 1;
+      sc.release(); down = null; cv.style.cursor = "grab";
+    }
+    cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", up);
+    cv.addEventListener("pointerleave", function () { if (!down) lastX = null; });
     window.__scene = sc;
   }
   if (document.fonts && document.fonts.load) Promise.race([Promise.all([document.fonts.load("900 100px Inter"), document.fonts.load("700 12px 'JetBrains Mono'")]), new Promise(function (r) { setTimeout(r, 1500); })]).then(boot, boot);
@@ -549,6 +582,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
     var askEl = $("ask");
     if (ask == null) { set("ask", "—"); askEl.dataset.shown = "0"; set("askUsd", ""); }
     else { set("ask", sol(ask, 4)); askEl.dataset.shown = "1"; set("askUsd", S.solUsd ? "≈ " + usd(ask * S.solUsd) : ""); }
+    if (sc) sc.price = ask == null ? null : sol(ask, 4);
+    var bar = $("sbar"); set("sbAsk", ask == null ? "—" : sol(ask, 4)); set("sbSub", live ? (t.holder ? "held by " + short(t.holder) : "held by the house") : (S.tagErr || (t && t.error)) ? "chain unavailable" : "not open yet");
+    $("sbBtn").textContent = ask == null ? "the tag" : "steal it";
+    $("heroCta").textContent = ask == null ? "see the tag" : "steal it · " + sol(ask, 4) + " SOL";
     if (live && t.setAt != null && t.set) {
       var pct = Math.max(0, Math.min(100, ask / t.set * 100));
       $("meltBar").style.width = pct.toFixed(2) + "%";
@@ -742,6 +779,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
     setInterval(renderTag, 1000);
     document.body.dataset.ready = "1";
   });
+
+  // ---------- sticky bar (phones) ----------
+  (function () {
+    var bar = $("sbar"), hero = $("top"), tag = $("tag");
+    function chk() {
+      var h = hero.getBoundingClientRect().bottom < 0, r = tag.getBoundingClientRect(), inTag = r.top < innerHeight && r.bottom > 0;
+      bar.classList.toggle("on", h && !inTag);
+    }
+    addEventListener("scroll", chk, { passive: true }); addEventListener("resize", chk); chk();
+  })();
 
   // ---------- reveal ----------
   var rv = [].slice.call(document.querySelectorAll(".rv"));
