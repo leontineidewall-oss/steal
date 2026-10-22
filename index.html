@@ -46,6 +46,17 @@ nav .wrap{display:flex;align-items:center;gap:22px;height:58px}
 .hint2{position:absolute;right:24px;top:18px;font:400 10px var(--mono);letter-spacing:.24em;text-transform:uppercase;color:#3d3d3d;pointer-events:none}
 .sbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:30;display:none;align-items:center;gap:12px;background:rgba(10,10,10,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #222;border-radius:16px;padding:10px 10px 10px 16px;transform:translateY(120%);transition:transform .25s}
 .sbar.on{transform:none}
+.game{padding:26px}
+.gtop{display:grid;grid-template-columns:1.3fr 1fr 1fr .6fr;gap:18px;align-items:end;margin-bottom:16px}
+.gask{font:800 clamp(34px,5vw,58px)/1 var(--sans);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+#gCv{width:100%;height:240px;display:block;border-radius:12px;background:#030303;border:1px solid #141414}
+.gctl{display:flex;gap:18px;align-items:center;margin-top:16px}
+.gset{flex:1}.gset input{margin:10px 0 0}
+.gctl .btn{width:auto;min-width:220px;margin-top:0;padding:0 26px}
+.glog{list-style:none;margin-top:16px;font:400 12px/1.8 var(--mono);color:var(--mid);min-height:90px}
+.glog li b{color:var(--fg);font-weight:400}.glog li.me b{color:var(--red2)}
+.gbest{font-size:11px;color:var(--dim);margin-top:6px;letter-spacing:.08em}
+.game.over .gask{color:var(--red2)}
 .sp{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--red),var(--red2));transform-origin:0 50%;transform:scaleX(0);box-shadow:0 0 12px rgba(255,42,54,.6)}
 .cur{position:fixed;left:-9px;top:-10px;width:18px;height:20px;pointer-events:none;z-index:60;display:none;filter:drop-shadow(0 0 8px rgba(255,42,54,.55));transition:width .2s,height .2s}
 .cur svg{width:100%;height:100%;display:block}
@@ -170,13 +181,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
 @keyframes fl{0%{color:var(--red2)}100%{color:inherit}}
 @media (prefers-reduced-motion:reduce){.tick.run .tk{animation:none}.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 @media (max-width:900px){.live,.plan,.logwrap{grid-template-columns:minmax(0,1fr)}.rules{grid-template-columns:repeat(2,minmax(0,1fr))}.links{display:none}.ca{margin-left:auto}}
-@media (max-width:560px){.wrap{padding-left:16px;padding-right:16px}.rules,.stats{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:22px}section{padding-top:64px;padding-bottom:64px}.hero{height:440px;min-height:0}.hero .tl{font-size:10px;letter-spacing:.3em}.trust{grid-template-columns:minmax(0,1fr)}.trust>div:nth-child(odd){border-right:0;padding-bottom:6px;border-bottom:0}.trust>div.h:nth-child(2){display:none}.rule{min-height:200px}.ca .lbl{display:none}.sbar{display:flex}.hint2{display:none}.cta{height:40px;font-size:14px}.hero .tl{bottom:calc(7% + 56px)}.grid4 .val{font-size:15px}.out .val{font-size:16px;white-space:normal}.out>div{padding:14px}.mrow{font-size:10px;gap:10px}.ask{font-size:58px}}
+@media (max-width:560px){.wrap{padding-left:16px;padding-right:16px}.rules,.stats{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.card{padding:22px}section{padding-top:64px;padding-bottom:64px}.hero{height:440px;min-height:0}.hero .tl{font-size:10px;letter-spacing:.3em}.trust{grid-template-columns:minmax(0,1fr)}.trust>div:nth-child(odd){border-right:0;padding-bottom:6px;border-bottom:0}.trust>div.h:nth-child(2){display:none}.rule{min-height:200px}.ca .lbl{display:none}.gtop{grid-template-columns:1fr 1fr}.gctl{flex-direction:column;align-items:stretch}.gctl .btn{width:100%}.sbar{display:flex}.hint2{display:none}.cta{height:40px;font-size:14px}.hero .tl{bottom:calc(7% + 56px)}.grid4 .val{font-size:15px}.out .val{font-size:16px;white-space:normal}.out>div{padding:14px}.mrow{font-size:10px;gap:10px}.ask{font-size:58px}}
 </style>
 </head>
 <body>
 <nav><div class="wrap">
   <a class="brand" href="#top"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1 19 7v12h-6l-3-4-3 4H1V7z" fill="#ff2a36"/><circle cx="10" cy="7" r="2.1" fill="#000"/></svg>steal</a>
-  <div class="links"><a href="#tag">tag</a><a href="#rules">rules</a><a href="#plan">price it</a><a href="#log">log</a><a href="#coin">coin</a></div>
+  <div class="links"><a href="#tag">tag</a><a href="#rules">rules</a><a href="#play">play</a><a href="#plan">price it</a><a href="#log">log</a><a href="#coin">coin</a></div>
   <button class="ca" id="ca" type="button" title="copy contract address"><span class="lbl">CA</span> <b id="caV">—</b></button>
 </div><i class="sp" id="sp"></i></nav>
 <header class="hero" id="top">
@@ -231,8 +242,28 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
   <div class="after"><span>holder gets the creator fees</span><span>10% of every steal buys and burns the coin</span><span>floor 0.01 SOL</span></div>
 </div></section>
 
+<section id="play"><div class="wrap">
+  <div class="k"><i>03</i> play <span class="chip">play money · not on chain</span></div>
+  <h2>practice the heist. <em>one hour = one second.</em></h2>
+  <div class="game card rv" id="game">
+    <div class="gtop">
+      <div><div class="lab">ask</div><div class="gask mono" id="gAsk">—</div></div>
+      <div><div class="lab">holder</div><div class="val" id="gHold">—</div></div>
+      <div><div class="lab">your play SOL</div><div class="val" id="gBal">10.000</div></div>
+      <div><div class="lab">time</div><div class="val" id="gTime">45s</div></div>
+    </div>
+    <canvas id="gCv" aria-label="practice round price chart"></canvas>
+    <div class="gctl">
+      <label class="gset"><span class="lab">your price <b id="gSetV" class="mono">×1.5</b></span><input type="range" id="gSet" min="1" max="2" step="0.05" value="1.5"></label>
+      <button class="btn" id="gBtn" type="button">start round</button>
+    </div>
+    <ol class="glog" id="gLog"><li>three bots (fox, rat, crow) want the tag too. hold it to earn play fees. steal at the right moment.</li></ol>
+    <div class="gbest mono" id="gBest">best —</div>
+  </div>
+</div></section>
+
 <section id="plan"><div class="wrap">
-  <div class="k"><i>03</i> price it</div>
+  <div class="k"><i>04</i> price it</div>
   <h2>too low, it's gone. <em>too high, it melts.</em></h2>
   <div class="plan">
     <div class="card inputs rv">
@@ -255,7 +286,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
 </div></section>
 
 <section id="log"><div class="wrap">
-  <div class="k"><i>04</i> log <span class="chip" id="logN">—</span></div>
+  <div class="k"><i>05</i> log <span class="chip" id="logN">—</span></div>
   <h2>every steal, <em>on chain.</em></h2>
   <div class="card rv" style="padding:22px 22px 8px"><svg class="chart" id="hChart" viewBox="0 0 1000 220" preserveAspectRatio="none" aria-label="tag price history"></svg><div class="hint" id="hHint" style="margin-bottom:12px">—</div></div>
   <div class="logwrap" style="margin-top:18px">
@@ -267,7 +298,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
 </div></section>
 
 <section id="coin"><div class="wrap">
-  <div class="k"><i>05</i> the coin</div>
+  <div class="k"><i>06</i> the coin</div>
   <h2>the coin <em>behind the tag.</em></h2>
   <div class="stats rv">
     <div><div class="lab">price</div><div class="val" id="mPrice">—</div></div>
@@ -281,7 +312,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
 </div></section>
 
 <section id="trust"><div class="wrap">
-  <div class="k"><i>06</i> trust</div>
+  <div class="k"><i>07</i> trust</div>
   <h2>what it <em>can't</em> do.</h2>
   <div class="trust rv">
     <div class="h">it cannot</div><div class="h">so it</div>
@@ -293,7 +324,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
 </div></section>
 
 <section id="faq"><div class="wrap">
-  <div class="k"><i>07</i> faq</div>
+  <div class="k"><i>08</i> faq</div>
   <div class="faq">
     <details><summary>what do I get for holding the tag?</summary><p>the coin's creator fees, for as long as you hold it. they go out from the tag wallet with memo fee.</p></details>
     <details><summary>why does the ask melt?</summary><p>so nobody can park it at a price no one pays. hold it long and it gets cheap to take.</p></details>
@@ -831,6 +862,91 @@ footer .wrap{display:flex;justify-content:space-between;gap:18px;font:400 12px v
       .catch(function (e) { msg((e && e.message ? e.message : "cancelled").toLowerCase().slice(0, 90), "bad"); })
       .then(function () { busy = false; });
   });
+
+  // ---------- play: a 45 second practice round against three bots, play money only ----------
+  var G = (function () {
+    var cv = $("gCv"), ctx = cv.getContext("2d"), btn = $("gBtn"), box = $("game");
+    var BOTS = ["fox", "rat", "crow"], RUN = 45, FEE = 0.02;
+    var st = null, api = { manual: false };
+    function fresh() {
+      return { t: 0, holder: "house", paid: 0, set: 1, setAt: 0, bal: 10, pts: [], marks: [], log: [], on: true,
+        bots: BOTS.map(function (n) { return { n: n, v: 0.45 + Math.random() * 1.1, cd: 0 }; }) };
+    }
+    function askAt(s) { return Math.max(TAG.R.FLOOR, s.set * Math.pow(1 - TAG.R.MELT, s.t - s.setAt)); }
+    function say(m, me) { st.log.unshift([m, me]); st.log = st.log.slice(0, 5); var l = $("gLog"); l.innerHTML = ""; st.log.forEach(function (x) { var li = document.createElement("li"); if (x[1]) li.className = "me"; li.innerHTML = x[0]; l.appendChild(li); }); }
+    function take(who, mult) {
+      var a = askAt(st), prev = st.holder;
+      if (prev === "you") { st.bal += a * TAG.R.CUT; }
+      if (who === "you") st.bal -= a;
+      st.holder = who; st.paid = a; st.set = Math.min(a * TAG.R.MAX_MULT, Math.max(TAG.R.FLOOR, a * mult)); st.setAt = st.t;
+      st.marks.push([st.t, a, who]);
+      say("<b>" + who + "</b> stole it for " + a.toFixed(3) + (prev === "you" ? " · you got " + (a * TAG.R.CUT).toFixed(3) + " back" : "") + " · set " + st.set.toFixed(3), who === "you" || prev === "you");
+      if (sc && who !== "you" && prev === "you") sc.glitch();
+    }
+    function step(dt) {
+      if (!st || !st.on) return;
+      st.t = Math.min(RUN, st.t + dt);
+      if (st.holder === "you") st.bal += FEE * dt;
+      var a = askAt(st);
+      st.bots.forEach(function (b) {
+        b.cd -= dt;
+        if (st.on && b.cd <= 0 && st.holder !== b.n && a <= b.v * (0.9 + Math.random() * 0.2) && Math.random() < dt * 2.2) { take(b.n, 1.25 + Math.random() * 0.7); b.cd = 2.5; b.v *= 0.9 + Math.random() * 0.35; }
+      });
+      if (!st.pts.length || st.t - st.pts[st.pts.length - 1][0] > 0.12) st.pts.push([st.t, askAt(st), st.holder]);
+      if (st.t >= RUN) end();
+    }
+    function end() {
+      st.on = false;
+      if (st.holder === "you") { say("time. you still hold it: no one paid you for it", true); }
+      var best = null; try { best = parseFloat(localStorage.getItem("steal_best")); if (!(st.bal <= best)) localStorage.setItem("steal_best", st.bal.toFixed(3)); best = Math.max(isFinite(best) ? best : -1e9, st.bal); } catch (e) { best = st.bal; }
+      say("round over · you finished with <b>" + st.bal.toFixed(3) + "</b> play SOL (" + (st.bal >= 10 ? "+" : "") + (st.bal - 10).toFixed(3) + ")", true);
+      $("gBest").textContent = "best " + best.toFixed(3) + " play SOL";
+      box.classList.add("over"); btn.textContent = "play again";
+    }
+    function draw() {
+      var r = cv.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1), W = Math.max(200, r.width), H = Math.max(120, r.height);
+      if (cv.width !== Math.round(W * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      ctx.strokeStyle = "#111"; ctx.lineWidth = 1;
+      for (var g = 1; g < 4; g++) { ctx.beginPath(); ctx.moveTo(0, H * g / 4); ctx.lineTo(W, H * g / 4); ctx.stroke(); }
+      if (!st) { ctx.fillStyle = "#3a3a3a"; ctx.font = "400 12px " + "'JetBrains Mono', monospace"; ctx.textAlign = "center"; ctx.fillText("press start · the ask melts 5% every second", W / 2, H / 2); ctx.textAlign = "left"; return; }
+      var top = 0.2; st.pts.forEach(function (q) { top = Math.max(top, q[1]); }); st.marks.forEach(function (m) { top = Math.max(top, m[1] * 2); }); top *= 1.1;
+      var X = function (t) { return 10 + (W - 20) * t / RUN; }, Y = function (v) { return H - 12 - (H - 24) * v / top; };
+      for (var i = 1; i < st.pts.length; i++) {
+        var p0 = st.pts[i - 1], p1 = st.pts[i];
+        ctx.strokeStyle = p1[2] === "you" ? "#ff2a36" : "#5a5a5a"; ctx.lineWidth = p1[2] === "you" ? 2.5 : 1.5;
+        ctx.beginPath(); ctx.moveTo(X(p0[0]), Y(p0[1])); ctx.lineTo(X(p1[0]), Y(p1[1])); ctx.stroke();
+      }
+      ctx.font = "700 10px 'JetBrains Mono', monospace";
+      st.marks.forEach(function (m) { ctx.fillStyle = m[2] === "you" ? "#ff6b73" : "#cfcfcf"; ctx.beginPath(); ctx.arc(X(m[0]), Y(m[1]), 3.5, 0, 7); ctx.fill(); ctx.fillText(m[2], X(m[0]) + 6, Y(m[1]) - 6); });
+      var a = askAt(st); ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(X(st.t), Y(a), 4.5, 0, 7); ctx.fill();
+      ctx.strokeStyle = "rgba(255,255,255,.08)"; ctx.beginPath(); ctx.moveTo(X(st.t), 0); ctx.lineTo(X(st.t), H); ctx.stroke();
+    }
+    function ui() {
+      var a = st ? askAt(st) : null, mult = +$("gSet").value;
+      $("gSetV").textContent = "×" + mult.toFixed(2);
+      $("gAsk").textContent = a == null ? "—" : a.toFixed(3);
+      $("gHold").textContent = st ? st.holder : "—";
+      $("gBal").textContent = (st ? st.bal : 10).toFixed(3);
+      $("gTime").textContent = st ? Math.ceil(RUN - st.t) + "s" : RUN + "s";
+      if (st && st.on) { btn.disabled = st.holder === "you" || st.bal < a; btn.textContent = st.holder === "you" ? "you hold it · earning" : st.bal < a ? "not enough play SOL" : "steal · " + a.toFixed(3); }
+      else if (!st) { btn.disabled = false; btn.textContent = "start round"; }
+      else btn.disabled = false;
+    }
+    btn.addEventListener("click", function () {
+      if (!st || !st.on) { st = fresh(); box.classList.remove("over"); $("gLog").innerHTML = ""; say("round on · the house holds it at 1.000", false); last = performance.now(); ui(); return; }
+      if (st.holder !== "you" && st.bal >= askAt(st)) take("you", +$("gSet").value);
+      ui();
+    });
+    $("gSet").addEventListener("input", ui);
+    var last = performance.now(), vis = true;
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }).observe(box);
+    (function loop(now) { var dt = Math.min(0.1, (now - last) / 1000); last = now; if (vis && !document.hidden && !api.manual) { step(dt); } if (vis) { ui(); draw(); } requestAnimationFrame(loop); })(performance.now());
+    try { var b0 = parseFloat(localStorage.getItem("steal_best")); if (isFinite(b0)) $("gBest").textContent = "best " + b0.toFixed(3) + " play SOL"; } catch (e) {}
+    api.step = function (dt) { step(dt); ui(); }; api.state = function () { return st; }; api.askAt = function () { return st ? askAt(st) : null; };
+    return api;
+  })();
+  window.__game = G;
 
   // ---------- price it ----------
   function num(id) { var v = parseFloat(($(id).value || "").replace(",", ".")); return isFinite(v) ? v : null; }
